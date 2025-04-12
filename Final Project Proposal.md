@@ -18,7 +18,7 @@ May 3rd Deadline – 3 weeks
 
 April 13th to 15th 
 
-This weekend we will both spend time searching different APIs that would work for the project we are planning. Based on the available APIs, we will adjust the project to fit the information. For example, if only certain information is available for the  
+This weekend we will both spend time searching different APIs that would work for the project we are planning. Based on the available APIs, we will adjust the project to fit the information. 
 
 April 15th – April 21st 
 
@@ -28,9 +28,13 @@ April 22nd- April 27
 
 Once both foundational items are created, we will work together to start developing the back end that will take the user input to bring in information from the API and make sure that all the input is valid.  
 
+April 27th – May 3rd 
+
+This week will be a week of finalization and running all of the code to make sure that there are no bugs throughout the code. We will test the code using all sorts of test cases so that it is prepared to run despite inputs that may be invalid.  
+
 **Collaboration Plan: How will you collaborate with your teammates on this project? Will you divide tasks and then incorporate them separately? Will you undertake a comprehensive pair program? Explain how you'll ensure effective team collaboration. This may also entail information on any software development methodologies you anticipate using (e.g. agile development). Be sure to clarify why you've picked this specific organizational structure. **
 
-We plan to follow an agile structure, meeting ~ 2 times per week to share any deliverables/findings, and address any roadblocks we face. We both plan to work on the front and back end part, while collectively searching for an applicable API. We have a shared folder on OneDrive, as well as WhatsApp phone number to maintain communication. 
+We plan to follow an agile structure, meeting ~ 2 times per week to share any deliverables/findings, and address any roadblocks we face. We both plan to work on the front and back end part, while collectively searching for an applicable API. For organizational purposes, we have created a shared folder on OneDrive, as well as WhatsApp phone number to maintain communication. 
 
 **Risks and Limitations: What do you think is the biggest risk to the success of your project? **
 
