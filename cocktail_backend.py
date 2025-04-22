@@ -29,7 +29,7 @@ def get_dropdown_options():
         except Exception as e:
             print(f"Skipping drink letter {letter}: {e}")
 
-    # ✅ Use a manually curated list of reliable base alcohols
+    # Use a manually curated list of reliable base alcohols
     reliable_alcohols = [
     "Vodka", "Rum", "Gin", "Tequila", "Whiskey",
     "Brandy", "Amaretto", "Triple Sec", "Bailey's Irish Cream",
@@ -57,8 +57,8 @@ def search():
     search_type = request.form['search_type']
     query = request.form['query'].strip().lower()
 
-    print("🔍 SEARCH TYPE:", search_type)
-    print("🔍 QUERY (raw):", query)
+    print(" SEARCH TYPE:", search_type)
+    print(" QUERY (raw):", query)
 
     if search_type == 'name':
         url = f"https://www.thecocktaildb.com/api/json/v1/1/search.php?s={query}"
@@ -69,7 +69,7 @@ def search():
     else:
         return "Invalid search option selected."
 
-    print("🔗 API URL:", url)
+    print(" API URL:", url)
 
     response = requests.get(url)
     data = response.json()
@@ -87,7 +87,7 @@ def search():
     else:
         drinks = data.get('drinks', [])
 
-    print("✅ RESULTS FOUND:", len(drinks))
+    print(" RESULTS FOUND:", len(drinks))
     return render_template('result.html', drinks=drinks)
 
 if __name__ == '__main__':
