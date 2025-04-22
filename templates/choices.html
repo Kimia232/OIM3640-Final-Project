@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Find a Drink</title>
+    <script>
+        function toggleDropdowns() {
+            var nameDropdown = document.getElementById("name-options");
+            var alcoholDropdown = document.getElementById("alcohol-options");
+            var selected = document.querySelector('input[name="search_type"]:checked').value;
+
+            nameDropdown.style.display = (selected === 'name') ? 'block' : 'none';
+            alcoholDropdown.style.display = (selected === 'alcohol') ? 'block' : 'none';
+        }
+
+        window.onload = toggleDropdowns;
+    </script>
+</head>
+<body>
+    <h2>Find Your Perfect Cocktail</h2>
+    <form method="POST" action="/search">
+        <p>How would you like to search?</p>
+
+        <input type="radio" id="name" name="search_type" value="name" checked onclick="toggleDropdowns()">
+        <label for="name">By Drink Name</label><br>
+
+        <input type="radio" id="alcohol" name="search_type" value="alcohol" onclick="toggleDropdowns()">
+        <label for="alcohol">By Alcohol Type</label><br><br>
+
+        <!-- Dropdown for cocktail names -->
+        <div id="name-options">
+            <label for="query-name">Choose a cocktail:</label>
+            <select name="query">
+                {% for drink in drink_names %}
+                    <option value="{{ drink }}">{{ drink }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Dropdown for alcohol types -->
+        <div id="alcohol-options" style="display:none;">
+            <label for="query-alcohol">Choose an alcohol:</label>
+            <select name="query">
+                {% for alcohol in alcohols %}
+                    <option value="{{ alcohol }}">{{ alcohol }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <br><br>
+        <button type="submit">Search</button>
+    </form>
+</body>
+</html>
