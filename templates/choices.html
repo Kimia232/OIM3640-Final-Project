@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Find a Drink</title>
+    <meta charset="UTF-8">
+    <title>Find Your Perfect Cocktail</title>
     <script>
         function toggleDropdowns() {
             var nameDropdown = document.getElementById("name-options");
@@ -11,7 +12,6 @@
             nameDropdown.style.display = (selected === 'name') ? 'block' : 'none';
             alcoholDropdown.style.display = (selected === 'alcohol') ? 'block' : 'none';
         }
-
         window.onload = toggleDropdowns;
     </script>
 </head>
@@ -26,19 +26,15 @@
         <input type="radio" id="alcohol" name="search_type" value="alcohol" onclick="toggleDropdowns()">
         <label for="alcohol">By Alcohol Type</label><br><br>
 
-        <!-- Dropdown for cocktail names -->
+        <!-- Dropdown for drink name -->
         <div id="name-options">
-            <label for="query-name">Choose a cocktail:</label>
-            <select name="query">
-                {% for drink in drink_names %}
-                    <option value="{{ drink }}">{{ drink }}</option>
-                {% endfor %}
-            </select>
+            <label for="query">Enter drink name:</label><br>
+            <input type="text" name="query">
         </div>
 
-        <!-- Dropdown for alcohol types -->
+        <!-- Dropdown for alcohol type -->
         <div id="alcohol-options" style="display:none;">
-            <label for="query-alcohol">Choose an alcohol:</label>
+            <label for="query">Choose an alcohol:</label><br>
             <select name="query">
                 {% for alcohol in alcohols %}
                     <option value="{{ alcohol }}">{{ alcohol }}</option>
