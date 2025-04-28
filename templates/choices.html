@@ -2,48 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Find Your Perfect Cocktail</title>
+    <title>Find Your Cocktail</title>
     <script>
-        function toggleDropdowns() {
-            var nameDropdown = document.getElementById("name-options");
-            var alcoholDropdown = document.getElementById("alcohol-options");
-            var selected = document.querySelector('input[name="search_type"]:checked').value;
-
-            nameDropdown.style.display = (selected === 'name') ? 'block' : 'none';
-            alcoholDropdown.style.display = (selected === 'alcohol') ? 'block' : 'none';
+        function toggleInputs() {
+            var searchType = document.getElementById('search_type').value;
+            if (searchType === 'name') {
+                document.getElementById('drink_name_input').style.display = 'block';
+                document.getElementById('alcohol_dropdown_input').style.display = 'none';
+            } else {
+                document.getElementById('drink_name_input').style.display = 'none';
+                document.getElementById('alcohol_dropdown_input').style.display = 'block';
+            }
         }
-        window.onload = toggleDropdowns;
+        window.onload = toggleInputs;
     </script>
 </head>
 <body>
-    <h2>Find Your Perfect Cocktail</h2>
-    <form method="POST" action="/search">
-        <p>How would you like to search?</p>
+    <h1>Find Your Cocktail</h1>
 
-        <input type="radio" id="name" name="search_type" value="name" checked onclick="toggleDropdowns()">
-        <label for="name">By Drink Name</label><br>
+    <form action="/search" method="post">
+        <label for="search_type">Search by:</label>
+        <select name="search_type" id="search_type" onchange="toggleInputs()">
+            <option value="name">Drink Name</option>
+            <option value="alcohol">Alcohol Type</option>
+        </select>
 
-        <input type="radio" id="alcohol" name="search_type" value="alcohol" onclick="toggleDropdowns()">
-        <label for="alcohol">By Alcohol Type</label><br><br>
+        <br><br>
 
-        <!-- Dropdown for drink name -->
-        <div id="name-options">
-            <label for="query">Enter drink name:</label><br>
-            <input type="text" name="query">
+        <div id="drink_name_input">
+            <label for="query_name">Enter Drink Name:</label>
+            <input type="text" name="query_name" placeholder="e.g., Margarita">
         </div>
 
-        <!-- Dropdown for alcohol type -->
-        <div id="alcohol-options" style="display:none;">
-            <label for="query">Choose an alcohol:</label><br>
-            <select name="query">
-                {% for alcohol in alcohols %}
-                    <option value="{{ alcohol }}">{{ alcohol }}</option>
+        <div id="alcohol_dropdown_input" style="display:none;">
+            <label for="query_alcohol">Select Alcohol:</label>
+            <select name="query_alcohol">
+                {% for ingredient in ingredients %}
+                    <option value="{{ ingredient }}">{{ ingredient }}</option>
                 {% endfor %}
             </select>
         </div>
 
         <br><br>
-        <button type="submit">Search</button>
+
+        <input type="submit" value="Search">
     </form>
 </body>
 </html>
