@@ -24,7 +24,7 @@
         <label for="search_type">Search by:</label>
         <select name="search_type" id="search_type" onchange="toggleInputs()">
             <option value="name">Drink Name</option>
-            <option value="alcohol">Alcohol Type</option>
+            <option value="alcohol">Ingredient</option>
         </select>
 
         <br><br>
@@ -35,7 +35,7 @@
         </div>
 
         <div id="alcohol_dropdown_input" style="display:none;">
-            <label for="query_alcohol">Select Alcohol:</label>
+            <label for="query_alcohol">Select Ingredient:</label>
             <select name="query_alcohol">
                 {% for ingredient in ingredients %}
                     <option value="{{ ingredient }}">{{ ingredient }}</option>
