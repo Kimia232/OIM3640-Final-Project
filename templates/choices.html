@@ -1,7 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <meta charset="UTF-8">
+    {% if random_cocktail %}
+    <div class="cocktail-card">
+        <h2>🍹 Cocktail of the Day: {{ random_cocktail.strDrink }}</h2>
+        <img src="{{ random_cocktail.strDrinkThumb }}" alt="{{ random_cocktail.strDrink }}">
+        <p><strong>Ingredients:</strong></p>
+        <ul>
+            {% for i in range(1, 16) %}
+                {% set ingredient = random_cocktail['strIngredient' + i|string] %}
+                {% set measure = random_cocktail['strMeasure' + i|string] %}
+                {% if ingredient %}
+                    <li>{{ measure|default('') }} {{ ingredient }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <p><strong>Instructions:</strong> {{ random_cocktail.strInstructions }}</p>
+    </div>
+{% endif %}
+
     <title>Find Your Cocktail</title>
     <script>
         function toggleInputs() {

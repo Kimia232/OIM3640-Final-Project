@@ -1,35 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Your Cocktail Results</title>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Your Cocktail Results</h1>
+    <h1>Search Results</h1>
 
     {% if drinks %}
         {% for drink in drinks %}
-            <div style="border: 1px solid black; margin: 10px; padding: 10px;">
+            <div class="result-card">
                 <h2>{{ drink.strDrink }}</h2>
-                {% if drink.strDrinkThumb %}
-                    <img src="{{ drink.strDrinkThumb }}" alt="Drink Image" width="200">
-                {% endif %}
-                <h3>Ingredients:</h3>
+                <img src="{{ drink.strDrinkThumb }}" alt="{{ drink.strDrink }}">
+                
+                <p><strong>Ingredients:</strong></p>
                 <ul>
                     {% for i in range(1, 16) %}
                         {% set ingredient = drink['strIngredient' + i|string] %}
                         {% set measure = drink['strMeasure' + i|string] %}
                         {% if ingredient %}
-                            <li>{{ ingredient }} {% if measure %} - {{ measure }}{% endif %}</li>
+                            <li>{{ measure|default('') }} {{ ingredient }}</li>
                         {% endif %}
                     {% endfor %}
                 </ul>
 
-                <h3>Instructions:</h3>
-                <p>{{ drink.strInstructions }}</p>
+                <p><strong>Instructions:</strong> {{ drink.strInstructions }}</p>
             </div>
         {% endfor %}
     {% else %}
-        <p>No drinks found.</p>
+        <h2>😢 No cocktails found. Try again!</h2>
     {% endif %}
+
+    <br>
+    <a href="/">Return to Home</a>
 </body>
 </html>
