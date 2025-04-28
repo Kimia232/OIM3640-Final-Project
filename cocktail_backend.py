@@ -17,7 +17,39 @@ def calculate_age(birthdate_str):
     today = datetime.today()
     return today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
 
+<<<<<<< HEAD
 # Home page: Enter birthday
+=======
+# Get valid drink names and reliable alcohol ingredients
+def get_dropdown_options():
+    valid_drinks = set()
+    for letter in 'abcdefghijklmnopqrstuvwxyz':
+        url = f"https://www.thecocktaildb.com/api/json/v1/1/search.php?f={letter}"
+        try:
+            res = requests.get(url).json()
+            drinks = res.get('drinks')
+            if drinks:
+                for drink in drinks:
+                    name = drink.get('strDrink')
+                    if name:
+                        verify_url = f"https://www.thecocktaildb.com/api/json/v1/1/search.php?s={name}"
+                        check = requests.get(verify_url).json()
+                        if check.get('drinks'):
+                            valid_drinks.add(name)
+        except Exception as e:
+            print(f"Skipping drink letter {letter}: {e}")
+
+    # Use a manually curated list of reliable base alcohols
+    reliable_alcohols = [
+    "Vodka", "Rum", "Gin", "Tequila", "Whiskey",
+    "Brandy", "Amaretto", "Triple Sec", "Bailey's Irish Cream",
+    "Scotch", "Cognac", "Kahlua", "Campari"
+]
+
+    return sorted(valid_drinks), sorted(reliable_alcohols)
+
+# Home route — asks for birthday
+>>>>>>> 8e3ac876082f5e2f6ac285e1233440eb80680b0a
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -35,8 +67,13 @@ def search():
     search_type = request.form['search_type']
     query = request.form['query'].strip()
 
+<<<<<<< HEAD
     if search_type == 'alcohol':
         query = " ".join(word.capitalize() for word in query.split())
+=======
+    print(" SEARCH TYPE:", search_type)
+    print(" QUERY (raw):", query)
+>>>>>>> 8e3ac876082f5e2f6ac285e1233440eb80680b0a
 
     if search_type == 'name':
         url = f"https://www.thecocktaildb.com/api/json/v1/1/search.php?s={query}"
@@ -45,6 +82,11 @@ def search():
     else:
         return "Invalid search option selected."
 
+<<<<<<< HEAD
+=======
+    print(" API URL:", url)
+
+>>>>>>> 8e3ac876082f5e2f6ac285e1233440eb80680b0a
     response = requests.get(url)
     if response.status_code != 200:
         return "Failed to fetch data from API."
@@ -57,6 +99,7 @@ def search():
 
     drinks = []
 
+<<<<<<< HEAD
     if data.get('drinks'):
         if search_type == 'alcohol':
             # Look up each drink ID for full details
@@ -80,6 +123,10 @@ def search():
             final_drinks.append(drink)
 
     return render_template('result.html', drinks=final_drinks)
+=======
+    print(" RESULTS FOUND:", len(drinks))
+    return render_template('result.html', drinks=drinks)
+>>>>>>> 8e3ac876082f5e2f6ac285e1233440eb80680b0a
 
 if __name__ == '__main__':
     app.run(debug=True)
