@@ -45,7 +45,7 @@ def index():
             random_cocktail = get_random_cocktail()   # ✨ Fetch random cocktail
             return render_template('choices.html', ingredients=ingredients, random_cocktail=random_cocktail)   # ✨ Pass it
         else:
-            return "Sorry, you must be 21 or older to use this app."
+            return "Sorry, you must be 21 or older to use this app. :("
     return render_template('index.html')
 
 
