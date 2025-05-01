@@ -5,7 +5,8 @@ import requests
 app = Flask(__name__)
 
 # Fetch the real list of ingredients from CocktailDB API
-def get_ingredients(url):
+def get_ingredients():
+    url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
     response = requests.get(url)
     ingredients = []
     if response.status_code == 200:
@@ -97,11 +98,6 @@ def search():
 
     print(f"Total drinks found: {len(drinks)}")
     return render_template('result.html', drinks=drinks)
-
-def main():
-    url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
-
-    get_ingredients(url)
 
 
 if __name__ == '__main__':
