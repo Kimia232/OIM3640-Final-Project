@@ -6,7 +6,7 @@ As college students, we are aware of the drinking habits of our peers and we wan
 
 
 ## User Instructions for the Website:
-<img src="image.png" alt="drawing" width="50"/>
+<img src="image.png" alt="drawing" width="100"/>
 
 As the legal drinking age in the United States is 21 years old, our project verifies that users meet the criteria. The website first prompts the user to enter their birthday. 
 
