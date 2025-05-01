@@ -1,12 +1,12 @@
 # OIM3640-Final-Project
 Kimia and Vicky Final Project for OIM3640
 
-## The application: 
+## The Application: 
 As college students, we are aware of the drinking habits of our peers and we wanted to provide adults of legal drinking age the opportunity to discover cocktails based on personal taste preferences or available ingredients. By providing the exact measurements to the user's desired cocktails, it helps people make safe, informed, and enjoyable choices when consuming alcohol. The app also helps to promote moderation and awareness by providing information on alcohol content.
 
 
 ## User Instructions for the Website:
-![alt text](image.png)
+<img src="image.png" alt="drawing" width="50"/>
 
 As the legal drinking age in the United States is 21 years old, our project verifies that users meet the criteria. The website first prompts the user to enter their birthday. 
 
