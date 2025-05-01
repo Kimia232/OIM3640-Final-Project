@@ -1,53 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Find a Drink</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    {% if random_cocktail %}
+    <div class="cocktail-card">
+        <h2>🍹 Cocktail of the Day: {{ random_cocktail.strDrink }}</h2>
+        <img src="{{ random_cocktail.strDrinkThumb }}" alt="{{ random_cocktail.strDrink }}">
+        <p><strong>Ingredients:</strong></p>
+        <ul>
+            {% for i in range(1, 16) %}
+                {% set ingredient = random_cocktail['strIngredient' + i|string] %}
+                {% set measure = random_cocktail['strMeasure' + i|string] %}
+                {% if ingredient %}
+                    <li>{{ measure|default('') }} {{ ingredient }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <p><strong>Instructions:</strong> {{ random_cocktail.strInstructions }}</p>
+    </div>
+{% endif %}
+
+    <title>Find Your Cocktail</title>
     <script>
-        function toggleDropdowns() {
-            var nameDropdown = document.getElementById("name-options");
-            var alcoholDropdown = document.getElementById("alcohol-options");
-            var selected = document.querySelector('input[name="search_type"]:checked').value;
-
-            nameDropdown.style.display = (selected === 'name') ? 'block' : 'none';
-            alcoholDropdown.style.display = (selected === 'alcohol') ? 'block' : 'none';
+        function toggleInputs() {
+            var searchType = document.getElementById('search_type').value;
+            if (searchType === 'name') {
+                document.getElementById('drink_name_input').style.display = 'block';
+                document.getElementById('alcohol_dropdown_input').style.display = 'none';
+            } else {
+                document.getElementById('drink_name_input').style.display = 'none';
+                document.getElementById('alcohol_dropdown_input').style.display = 'block';
+            }
         }
-
-        window.onload = toggleDropdowns;
+        window.onload = toggleInputs;
     </script>
 </head>
 <body>
-    <h2>Find Your Perfect Cocktail</h2>
-    <form method="POST" action="/search">
-        <p>How would you like to search?</p>
+    <h1>Find Your Cocktail</h1>
 
-        <input type="radio" id="name" name="search_type" value="name" checked onclick="toggleDropdowns()">
-        <label for="name">By Drink Name</label><br>
+    <form action="/search" method="post">
+        <label for="search_type">Search by:</label>
+        <select name="search_type" id="search_type" onchange="toggleInputs()">
+            <option value="name">Drink Name</option>
+            <option value="alcohol">Ingredient</option>
+        </select>
 
-        <input type="radio" id="alcohol" name="search_type" value="alcohol" onclick="toggleDropdowns()">
-        <label for="alcohol">By Alcohol Type</label><br><br>
+        <br><br>
 
-        <!-- Dropdown for cocktail names -->
-        <div id="name-options">
-            <label for="query-name">Choose a cocktail:</label>
-            <select name="query">
-                {% for drink in drink_names %}
-                    <option value="{{ drink }}">{{ drink }}</option>
-                {% endfor %}
-            </select>
+        <div id="drink_name_input">
+            <label for="query_name">Enter Drink Name:</label>
+            <input type="text" name="query_name" placeholder="e.g., Margarita">
         </div>
 
-        <!-- Dropdown for alcohol types -->
-        <div id="alcohol-options" style="display:none;">
-            <label for="query-alcohol">Choose an alcohol:</label>
-            <select name="query">
-                {% for alcohol in alcohols %}
-                    <option value="{{ alcohol }}">{{ alcohol }}</option>
+        <div id="alcohol_dropdown_input" style="display:none;">
+            <label for="query_alcohol">Select Ingredient:</label>
+            <select name="query_alcohol">
+                {% for ingredient in ingredients %}
+                    <option value="{{ ingredient }}">{{ ingredient }}</option>
                 {% endfor %}
             </select>
         </div>
 
         <br><br>
-        <button type="submit">Search</button>
+
+        <input type="submit" value="Search">
     </form>
 </body>
 </html>
