@@ -9,31 +9,36 @@ def get_ingredients():
     url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
     response = requests.get(url)
     ingredients = []
+
     if response.status_code == 200:
         data = response.json()
-        if isinstance(data.get('drinks'), list):
-            ingredients = [item['strIngredient1'] for item in data['drinks']]
+        if "drinks" in data and isinstance(data["drinks"], list):
+            for drink in data["drinks"]:
+                ingredients.append(drink["strIngredient1"])
     return ingredients
 
 # Fetch a random cocktail
 def get_random_cocktail():
+    url = "https://www.thecocktaildb.com/api/json/v1/1/random.php"
     try:
-        url = "https://www.thecocktaildb.com/api/json/v1/1/random.php"
         response = requests.get(url)
         if response.status_code == 200:
             data = response.json()
-            if isinstance(data.get('drinks'), list):
-                return data['drinks'][0]  # Return the first (and only) random drink
-        return None
-    except Exception as e:
+            if "drinks" in data and isinstance(data["drinks"], list):
+                return data["drinks"][0]  # Return the first drink
+    except:
         print(f"Error fetching random cocktail: {e}")
-        return None
+    return None
 
 # Calculate age
 def calculate_age(birthdate_str):
     birthdate = datetime.strptime(birthdate_str, "%Y-%m-%d")
     today = datetime.today()
-    return today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+    age = today.year - birthdate.year
+
+    if (today.month, today.day) < (birthdate.month, birthdate.day):
+        age -= 1
+    return age
 
 # Homepage
 @app.route('/', methods=['GET', 'POST'])
@@ -58,7 +63,7 @@ def search():
         query = request.form.get('query_name', '').strip()
     else:
         query = request.form.get('query_alcohol', '').strip()
-
+    
     base_url = "https://www.thecocktaildb.com/api/json/v1/1/"
     drinks = []
 
@@ -98,6 +103,7 @@ def search():
 
     print(f"Total drinks found: {len(drinks)}")
     return render_template('result.html', drinks=drinks)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
